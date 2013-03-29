@@ -1,0 +1,13 @@
+parameters:
+    sonata.category.class: Success\CategoryBundle\Admin\CategoryAdmin
+
+services:
+    sonata.success.categorias:
+        class: %sonata.category.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: 'Categorias', label: Categorias }
+        arguments:
+            - null
+            - Success\CategoryBundle\Entity\Category
+            - CategoryBundle:Category
+            - @service_container

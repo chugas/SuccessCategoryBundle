@@ -1,0 +1,54 @@
+{% block associate %}
+  <h1>Categorias</h1>
+  
+  <!--<div id="treecontrol">
+    <a title="Collapse the entire tree below" href="#"><img src="/images/categorias/associate/minus.gif" /> Collapse All</a>
+    <a title="Expand the entire tree below" href="#"><img src="/images/categorias/associate/plus.gif" /> Expand All</a>
+    <a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+  </div>-->
+  
+  <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+    
+    <input name="object_id" type="hidden" value="1" />
+
+    <ul id="tree"></ul>
+
+    <input type="submit" value="Agregar" />
+    
+  </form>        
+
+  <script type="text/javascript">
+    function addCategories(form){
+      mdShowLoading();
+      $.ajax({
+        url: $(form).attr('action'),
+        data: $(form).serialize(),
+        type: 'post',
+        dataType: 'json',
+        success: function(json){
+          mdHideLoading();
+          if(json.response == "OK"){
+            $('#ec_drawer').html(json.options.message).show();
+          }else {
+
+          }
+        }
+      });
+      return false;
+    }
+
+    $(function() {
+      // validate the form when it is submitted
+      $("#ec_categorias_form").submit(function(){
+        return addCategories(this);
+      });
+      
+      $("#tree").treeview({
+        collapsed: true,
+        animated: "medium",
+        control:"#sidetreecontrol",
+        persist: "location"
+      });      
+    });
+  </script>
+{% endblock %}

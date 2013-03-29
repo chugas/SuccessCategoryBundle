@@ -1,0 +1,35 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="/bundles/test/css/categorias/associate/jquery.treeview.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/bundles/test/js/categorias/associate/jquery.treeview.js"></script>
+  <script src="/bundles/test/js/categorias/associate/jquery.treeview.edit.js"></script>
+  <script src="/bundles/test/js/categorias/associate/jquery.treeview.async.js"></script>
+{% endblock %}
+
+{% block list_table %}
+  
+  <div id="treecontrol">
+    <a title="Collapse the entire tree below" href="#"><img src="/images/categorias/associate/minus.gif" /> Collapse All</a>
+    <a title="Expand the entire tree below" href="#"><img src="/images/categorias/associate/plus.gif" /> Expand All</a>
+    <a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+  </div>
+
+  {{ results | raw }}
+
+  <script type="text/javascript">
+    $(function() {
+      $("#tree").treeview({
+        collapsed: true,
+        animated: "medium",
+        control:"#sidetreecontrol",
+        persist: "location"
+      });      
+    });
+  </script>
+{% endblock %}

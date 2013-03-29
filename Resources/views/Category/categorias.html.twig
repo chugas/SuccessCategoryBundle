@@ -1,0 +1,89 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="/bundles/category/css/categorias/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+  <link href="/bundles/category/css/categorias/jquery.treetable.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/bundles/category/js/categorias/jquery.treetable.js"></script>  
+{% endblock %}
+
+{% block footer %}
+  {{ parent() }}
+{% endblock %}
+
+{% block list_table %}
+    {% set batchactions = admin.batchactions %}
+    {% if admin.datagrid.results|length > 0 %}
+        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+            <table id="my_tree" class="table table-bordered table-striped">
+                {% block table_header %}
+                    <thead>
+                        <tr class="sonata-ba-list-field-header">
+                          <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc" style="width:700px">
+                            Titulo
+                          </th>
+                          <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc">
+                            Acciones
+                          </th>
+                        </tr>
+                    </thead>
+                {% endblock %}
+
+                {% block table_body %}
+                    <tbody>
+                        {% for object in results %}
+                            {% spaceless %}
+                            <tr data-tt-id="{{ object.id }}" {% if object.parent != null %}data-tt-parent-id="{{ object.parent.id }}"{% endif %}>
+                                <td>
+                                  <span class="{% if object.children.count == 0 %} file {% else %} folder {% endif %}" onclick="treeExpand(this)">
+                                    {{ object.title }}
+                                  </span>
+                                </td>
+                                <td>
+                                  {% include "SonataAdminBundle:CRUD:list__action_edit.html.twig" with {"admin" : admin} %}                                    
+                                  {% include "SonataAdminBundle:CRUD:list__action_delete.html.twig" with {"admin" : admin} %}
+                                </td>
+                            </tr>
+                            {% endspaceless %}
+                        {% endfor %}
+                    </tbody>
+                {% endblock %}
+
+
+            </table>
+        </form>  
+
+        <script type="text/javascript">
+          $("#my_tree").treetable({
+            treeColumn: 2,
+            expandable: true
+          });
+
+          function treeExpand(object){
+            $("#my_tree").treetable("expandNode", $(object).parents('tr').attr('data-tt-id'));
+          }
+        </script>
+        
+    {% else %}
+        <p class="notice">
+            {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
+        </p>
+    {% endif %}
+        
+        
+{% endblock %}
