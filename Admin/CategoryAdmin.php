@@ -50,7 +50,8 @@ class CategoryAdmin extends Admin {
                 'class'       => 'CategoryBundle:Category',
                 'multiple'    => false,
                 'property'    => 'indentedTitle',
-                'query_builder' => $query
+                'query_builder' => $query,
+                'required'      => false
             ))
             ->add('translations', 'a2lix_translations', array(
                 'required' => false,
