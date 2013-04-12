@@ -25,7 +25,7 @@ class TreeType extends AbstractType
     $uniqid = $this->uniqid;
 
     $em = $this->container->get('doctrine')->getEntityManager();
-    $repo = $em->getRepository('TestBundle:Category');    
+    $repo = $em->getRepository('CategoryBundle:Category');    
     
     $options = array(
         'decorate' => true,
