@@ -45,7 +45,7 @@ class CategoryAdmin extends Admin {
     $formMapper
             ->with('General')
             ->add('title', 'text')
-            ->add('description', 'text')
+            ->add('description', 'text', array('required' => false))
             ->add('parent', 'entity', array(
                 'class'       => 'CategoryBundle:Category',
                 'multiple'    => false,
