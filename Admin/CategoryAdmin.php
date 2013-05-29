@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 //In order to use service for prePersist and preUpdate
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryAdmin extends Admin {
 
@@ -14,9 +13,9 @@ class CategoryAdmin extends Admin {
       '_per_page' => 1000
   );
   
-  public function __construct($code, $class, $baseControllerName, ContainerInterface $container) {
+  public function __construct($code, $class, $baseControllerName, $entity_manager) {
     parent::__construct($code, $class, $baseControllerName);
-    $this->container = $container;
+    $this->entity_manager = $entity_manager;
   }
   
   public function getTemplate($name) {
@@ -38,7 +37,7 @@ class CategoryAdmin extends Admin {
    * @return void
    */
   protected function configureFormFields(FormMapper $formMapper) {
-    $em = $this->container->get('doctrine')->getEntityManager();
+    $em = $this->entity_manager;
     $repo = $em->getRepository('CategoryBundle:Category');
     $query = $repo->getTreeQuery();
 

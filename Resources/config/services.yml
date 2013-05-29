@@ -10,4 +10,4 @@ services:
             - null
             - Success\CategoryBundle\Entity\Category
             - CategoryBundle:Category
-            - @service_container
+            - @doctrine.orm.entity_manager
