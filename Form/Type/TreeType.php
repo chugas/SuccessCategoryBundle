@@ -7,14 +7,14 @@ use Symfony\Component\Form\FormInterface;
                   
 class TreeType extends AbstractType
 {
-  protected $container;
+  protected $entity_manager;
   protected $subject;  
   protected $admin;
   protected $uniqid;
 
 
-  public function __construct($container, $admin) {
-    $this->container = $container;
+  public function __construct($entity_manager, $admin) {
+    $this->entity_manager = $entity_manager;
     $this->admin = $admin;
     $this->subject = $admin->getSubject();
     $this->uniqid = $admin->getUniqid();
@@ -24,8 +24,7 @@ class TreeType extends AbstractType
     $subject = $this->subject;
     $uniqid = $this->uniqid;
 
-    $em = $this->container->get('doctrine')->getEntityManager();
-    $repo = $em->getRepository('CategoryBundle:Category');    
+    $repo = $this->entity_manager->getRepository($options['class']);
     
     $options = array(
         'decorate' => true,
