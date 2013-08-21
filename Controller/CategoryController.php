@@ -25,7 +25,7 @@ class CategoryController extends Controller {
       // set the theme for the current Admin Form
       $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 
-      $em = $this->get('doctrine')->getEntityManager();
+      $em = $this->get('doctrine')->getManager();
       $repo = $em->getRepository('CategoryBundle:Category');      
       $list = $repo->getTree();
       
