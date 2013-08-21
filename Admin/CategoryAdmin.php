@@ -52,18 +52,6 @@ class CategoryAdmin extends Admin {
                 'query_builder' => $query,
                 'required'      => false
             ))
-            ->add('translations', 'a2lix_translations', array(
-                'required' => false,
-                'fields' => array(
-                    'title' => array(
-                        'label' => 'Titulo', // [optional] Custom label. Ucfirst, otherwise
-                    ),
-                    'description' => array(
-                        'label' => 'Descripcion',
-                        'attr' => array('style' => 'width:800px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
-                    )
-                )
-            ))
             ->end()
     ;
   }

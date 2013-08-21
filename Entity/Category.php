@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="success_categories")
  * @ORM\Entity(repositoryClass="Success\CategoryBundle\Entity\Repository\CategoryRepository")
- * @Gedmo\TranslationEntity(class="Success\CategoryBundle\Entity\CategoryTranslation")
  */
 class Category {
 
@@ -22,19 +21,16 @@ class Category {
   private $id;
 
   /**
-   * @Gedmo\Translatable
    * @ORM\Column(length=64)
    */
   private $title;
 
   /**
-   * @Gedmo\Translatable
    * @ORM\Column(type="text", nullable=true)
    */
   private $description;
 
   /**
-   * @Gedmo\Translatable
    * @Gedmo\Slug(fields={"title"})
    * @ORM\Column(length=64, unique=true)
    */
@@ -93,31 +89,8 @@ class Category {
    */
   private $updated;
 
-  /**
-   * @ORM\OneToMany(
-   *   targetEntity="CategoryTranslation",
-   *   mappedBy="object",
-   *   cascade={"persist", "remove"}
-   * )
-   */
-  private $translations;
-
   public function __construct() {
     $this->children = new ArrayCollection();
-    $this->translations = new ArrayCollection();
-  }
-
-  public function getTranslations() {
-    return $this->translations;
-  }
-
-  public function setTranslations($translations) {
-    foreach ($translations as $translation) {
-      $translation->setObject($this);
-    }
-
-    $this->translations = $translations;
-    return $this;
   }
 
   public function getSlug() {
@@ -294,29 +267,6 @@ class Category {
     public function removeChildren(\Success\CategoryBundle\Entity\Category $children)
     {
         $this->children->removeElement($children);
-    }
-
-    /**
-     * Add translations
-     *
-     * @param \Success\CategoryBundle\Entity\CategoryTranslation $translations
-     * @return Category
-     */
-    public function addTranslation(\Success\CategoryBundle\Entity\CategoryTranslation $translations)
-    {
-        $this->translations[] = $translations;
-    
-        return $this;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param \Success\CategoryBundle\Entity\CategoryTranslation $translations
-     */
-    public function removeTranslation(\Success\CategoryBundle\Entity\CategoryTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
     }
     
     public function getIndentedTitle()
