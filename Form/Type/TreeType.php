@@ -43,7 +43,7 @@ class TreeType extends AbstractType
         $options
     );
     
-    $view->set('htmlTree', $htmlTree);    
+    $view->vars['htmlTree'] = $htmlTree;    
   }
   
   public function getParent() {
