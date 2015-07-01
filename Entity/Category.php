@@ -154,126 +154,115 @@ class Category {
   }
 
   public function __toString() {
-    return (string)$this->getTitle();
+    return (string) $this->getTitle();
   }
 
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   * @return Category
+   */
+  public function setSlug($slug) {
+    $this->slug = $slug;
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Category
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Set root
-     *
-     * @param integer $root
-     * @return Category
-     */
-    public function setRoot($root)
-    {
-        $this->root = $root;
-    
-        return $this;
-    }
+  /**
+   * Set root
+   *
+   * @param integer $root
+   * @return Category
+   */
+  public function setRoot($root) {
+    $this->root = $root;
 
-    /**
-     * Set level
-     *
-     * @param integer $level
-     * @return Category
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-    
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return Category
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    
-        return $this;
-    }
+  /**
+   * Set level
+   *
+   * @param integer $level
+   * @return Category
+   */
+  public function setLevel($level) {
+    $this->level = $level;
 
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
+    return $this;
+  }
 
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Category
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    
-        return $this;
-    }
+  /**
+   * Set position
+   *
+   * @param integer $position
+   * @return Category
+   */
+  public function setPosition($position) {
+    $this->position = $position;
 
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Category
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-    
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Add children
-     *
-     * @param \Success\CategoryBundle\Entity\Category $children
-     * @return Category
-     */
-    public function addChildren(\Success\CategoryBundle\Entity\Category $children)
-    {
-        $this->children[] = $children;
-    
-        return $this;
-    }
+  /**
+   * Get position
+   *
+   * @return integer 
+   */
+  public function getPosition() {
+    return $this->position;
+  }
 
-    /**
-     * Remove children
-     *
-     * @param \Success\CategoryBundle\Entity\Category $children
-     */
-    public function removeChildren(\Success\CategoryBundle\Entity\Category $children)
-    {
-        $this->children->removeElement($children);
-    }
-    
-    public function getIndentedTitle()
-    {
-        return str_repeat(
-            html_entity_decode('-', ENT_QUOTES, 'UTF-8'),
-            ($this->getLevel()) * 2
-        ) . ' ' . $this->getTitle();
-    }
+  /**
+   * Set created
+   *
+   * @param \DateTime $created
+   * @return Category
+   */
+  public function setCreated($created) {
+    $this->created = $created;
+
+    return $this;
+  }
+
+  /**
+   * Set updated
+   *
+   * @param \DateTime $updated
+   * @return Category
+   */
+  public function setUpdated($updated) {
+    $this->updated = $updated;
+
+    return $this;
+  }
+
+  /**
+   * Add children
+   *
+   * @param \Success\CategoryBundle\Entity\Category $children
+   * @return Category
+   */
+  public function addChildren(\Success\CategoryBundle\Entity\Category $children) {
+    $this->children[] = $children;
+
+    return $this;
+  }
+
+  /**
+   * Remove children
+   *
+   * @param \Success\CategoryBundle\Entity\Category $children
+   */
+  public function removeChildren(\Success\CategoryBundle\Entity\Category $children) {
+    $this->children->removeElement($children);
+  }
+
+  public function getIndentedTitle() {
+    return str_repeat(
+                    html_entity_decode('-', ENT_QUOTES, 'UTF-8'), ($this->getLevel()) * 2
+            ) . ' ' . $this->getTitle();
+  }
+
 }

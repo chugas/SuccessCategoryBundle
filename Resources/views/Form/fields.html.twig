@@ -1,23 +1,28 @@
 {% block tree_widget %}
 
-  <div id="treecontrol">
-    <a title="Colapsar" href="#"><img src="/bundles/category/images/associate/minus.gif" /> Colapsar </a>
-    <a title="Expandir" href="#"><img src="/bundles/category/images/associate/plus.gif" /> Expandir </a>
-    <a title="Toggle" href="#">Toggle</a>
-  </div>
+    <div id="treecontrol">
+        <a title="Colapsar" href="#"><img src="/bundles/category/images/associate/minus.gif" /> Colapsar </a>
+        <a title="Expandir" href="#"><img src="/bundles/category/images/associate/plus.gif" /> Expandir </a>
+        <a title="Toggle" href="#">Toggle</a>
+    </div>
 
-  {{ htmlTree | raw }}
+    <div id="treecontent">
+        {{ htmlTree | raw }}
+    </div>
 
-  <script type="text/javascript">
-    $(function() {
-      $("#tree").treeview({
-        collapsed: true,
-        animated: "medium",
-        control:"#treecontrol",
-        persist: "location"
-      });      
-    });
-  </script>
-  
+    <script type="text/javascript">
+        $(function () {
+            $("#treecontent > ul").attr('id', 'tree');
+            $("#tree").treeview({
+                collapsed: true,
+                animated: "medium",
+                control: "#treecontrol",
+                persist: "location"
+            });
+            $('#tree input').on('ifChecked', function (event) {
+                $(this).parents('ul').first().parent('li').find('input').first().iCheck('check');
+            });
+        });
+    </script>
+
 {% endblock %}
-        

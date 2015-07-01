@@ -28,12 +28,12 @@ class TreeType extends AbstractType
     
     $options = array(
         'decorate' => true,
-        'rootOpen' => '<ul id="tree">',
+        'rootOpen' => '<ul>',
         'rootClose' => '</ul>',
         'childOpen' => '<li>',
         'childClose' => '</li>',
         'nodeDecorator' => function($node) use (&$subject, &$uniqid) {
-            return '<input type="checkbox" value="' . $node['id'] . '" name="' . $uniqid . '[categories][]" ' . ($subject->hasCategory($node['id']) ? 'checked=checked' : '') . ' /><a href="/page/'.$node['slug'].'">'.$node['title'].'</a>';
+            return '<input type="checkbox" value="' . $node['id'] . '" name="' . $uniqid . '[categories][]" ' . ($subject->hasCategory($node['id']) ? 'checked=checked' : '') . ' /> <a href="javascript:void(0)">'.$node['title'].'</a>';
         }
     );
     
