@@ -1,0 +1,16 @@
+parameters:
+
+    # Service Parameters defined in app/config.
+
+services:
+
+    #
+    # News Forms.
+    #
+    success.form.type.news:
+        class: %success.form.type.news.class%
+        arguments:
+            - %success.model.news.class%
+        tags:
+            - { name: form.type, alias: success_news }
+            

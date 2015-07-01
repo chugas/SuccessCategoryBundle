@@ -1,0 +1,23 @@
+parameters:
+
+    # Service Parameters defined in app/config.
+    success.repository.category.class: Success\CategoryBundle\Entity\Repository\CategoryRepository
+    success.model.category.class: Success\CategoryBundle\Entity\Category
+
+services:
+
+    success.entity_manager.category:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.category.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.category
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.category.class%
+            
+    success.repository.category:
+        class: %success.repository.category.class%
+        arguments:
+            - '@success.entity_manager.category'
+            - '@success.repository.category.metadata'

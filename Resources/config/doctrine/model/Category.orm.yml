@@ -1,0 +1,78 @@
+Success\CategoryBundle\Entity\Category:
+    type: entity
+    table: success_categories
+    repositoryClass: Success\CategoryBundle\Entity\Repository\CategoryRepository
+    gedmo:
+        tree:
+            type: nested    
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 64
+            nullable: false
+        description:
+            type: text
+            nullable: true
+        slug:
+            type: string
+            length: 64
+            nullable: false
+            unique: true
+            gedmo:
+                slug:
+                    separator: _
+                    style: camel
+                    fields:
+                        - title
+        lft:
+            type: integer
+            gedmo:
+                - treeLeft
+        rgt:
+            type: integer
+            gedmo:
+                - treeRight
+        root:
+            type: integer
+            nullable: true
+            gedmo:
+                - treeRoot
+        level:
+            type: integer
+            gedmo:
+                - treeLevel
+        position:
+            type: integer
+            nullable: true
+        created:
+            type: datetime
+            nullable: true
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            nullable: true
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        parent:
+          targetEntity: Category
+          inversedBy: children
+          joinColumn:
+              name: parent_id
+              referencedColumnName: id
+              onDelete: SET NULL
+          gedmo:
+              - treeParent
+    oneToMany:
+        children:
+            targetEntity: Category
+            mappedBy: parent
+            orderBy:
+                lft: ASC
